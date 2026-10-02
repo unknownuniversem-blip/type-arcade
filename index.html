@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
   <title>TypeArcade - 6 Thematic Typing Games Suite</title>
-  <meta name="description" content="Poki-style English typing arcade. Unique weapons for each game: Slingshot Bottle Cracker, Dual Blaster Gun, Space Starfighter, Cyber Racer, and Sniper Disarmer.">
+  <meta name="description" content="Poki-style English typing arcade. Portrait by default on mobile with quick landscape toggle.">
 
   <!-- Privacy Analytics -->
   <script data-goatcounter="https://quicktools.goatcounter.com/count"
@@ -58,8 +58,8 @@
     .hud {
       position: absolute;
       top: 10px;
-      left: 14px;
-      right: 14px;
+      left: 12px;
+      right: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -71,19 +71,20 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-wrap: wrap;
     }
 
     .hud-badge {
       background: rgba(15, 23, 42, 0.9);
       border: 1px solid rgba(56, 189, 248, 0.35);
       backdrop-filter: blur(8px);
-      padding: 5px 12px;
+      padding: 4px 10px;
       border-radius: 9999px;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 900;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       letter-spacing: 0.03em;
     }
 
@@ -92,9 +93,9 @@
       background: rgba(15, 23, 42, 0.9);
       border: 1px solid var(--card-border);
       color: #fff;
-      padding: 5px 12px;
+      padding: 5px 10px;
       border-radius: 9999px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
@@ -106,11 +107,7 @@
     .btn-hud-danger {
       border-color: rgba(239, 68, 68, 0.6);
       color: #fca5a5;
-      background: rgba(239, 68, 68, 0.18);
-    }
-    .btn-hud-danger:hover {
-      border-color: var(--danger);
-      background: rgba(239, 68, 68, 0.35);
+      background: rgba(239, 68, 68, 0.2);
     }
 
     /* OVERLAYS */
@@ -121,7 +118,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: rgba(2, 6, 23, 0.93);
+      background: rgba(2, 6, 23, 0.94);
       backdrop-filter: blur(14px);
       padding: 16px;
       text-align: center;
@@ -129,7 +126,7 @@
     }
 
     .arcade-title {
-      font-size: clamp(2rem, 5.5vw, 3.6rem);
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
       font-weight: 900;
       color: var(--primary);
       text-shadow: 0 0 35px rgba(56, 189, 248, 0.6);
@@ -139,20 +136,20 @@
 
     .arcade-sub {
       color: var(--muted);
-      font-size: clamp(0.85rem, 2vw, 1rem);
-      max-width: 620px;
+      font-size: clamp(0.8rem, 2vw, 0.95rem);
+      max-width: 600px;
       line-height: 1.4;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     /* 6 GAME MODES GRID */
     .modes-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      max-width: 860px;
+      gap: 8px;
+      max-width: 820px;
       width: 100%;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     @media (max-width: 680px) {
@@ -162,8 +159,8 @@
     .mode-card {
       background: var(--card);
       border: 2px solid var(--card-border);
-      border-radius: 12px;
-      padding: 12px;
+      border-radius: 10px;
+      padding: 10px;
       cursor: pointer;
       transition: all 0.15s ease;
       text-align: left;
@@ -175,34 +172,24 @@
       background: rgba(15, 23, 42, 0.95);
     }
     .mode-card h3 {
-      font-size: 0.92rem;
+      font-size: 0.85rem;
       font-weight: 800;
       color: #fff;
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 3px;
+      gap: 4px;
+      margin-bottom: 2px;
     }
     .mode-card p {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: var(--muted);
-      line-height: 1.35;
-    }
-    .mode-tag {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin-top: 5px;
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--primary);
+      line-height: 1.3;
     }
 
     .selector-bar {
       display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
+      gap: 6px;
+      margin-bottom: 12px;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
@@ -212,9 +199,9 @@
       background: var(--card);
       border: 1px solid var(--card-border);
       color: var(--muted);
-      padding: 5px 14px;
+      padding: 4px 12px;
       border-radius: 9999px;
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       font-weight: 800;
       cursor: pointer;
     }
@@ -228,8 +215,8 @@
       background: var(--primary);
       color: #030712;
       border: none;
-      padding: 13px 44px;
-      font-size: 1.15rem;
+      padding: 12px 38px;
+      font-size: 1.05rem;
       font-weight: 900;
       border-radius: 9999px;
       cursor: pointer;
@@ -243,19 +230,19 @@
       background: rgba(15, 23, 42, 0.95);
       border: 1px solid var(--card-border);
       border-radius: 12px;
-      padding: 14px 24px;
-      max-width: 440px;
+      padding: 12px 20px;
+      max-width: 420px;
       width: 100%;
-      margin: 14px 0;
+      margin: 12px 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
       text-align: left;
     }
-    .summary-item strong { display: block; font-size: 1.25rem; color: #fff; }
-    .summary-item span { font-size: 0.72rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
+    .summary-item strong { display: block; font-size: 1.2rem; color: #fff; }
+    .summary-item span { font-size: 0.7rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
 
-    /* FULLSCREEN ANDROID CATCHER */
+    /* HIDDEN FULLSCREEN TOUCH CAPTURE FIELD */
     #mobileKeyInput {
       position: fixed;
       top: 0;
@@ -275,15 +262,15 @@
     .btn-mobile-keyboard {
       display: none;
       position: absolute;
-      bottom: 60px;
-      right: 14px;
+      bottom: 58px;
+      right: 12px;
       z-index: 15;
       background: rgba(56, 189, 248, 0.25);
       border: 1px solid var(--primary);
       color: #fff;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 800;
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 9999px;
       backdrop-filter: blur(8px);
       cursor: pointer;
@@ -297,7 +284,7 @@
 
   <canvas id="gameCanvas"></canvas>
 
-  <button type="button" class="btn-mobile-keyboard" id="btnToggleKb" onclick="focusKeyboard()">⌨️ Show Keyboard</button>
+  <button type="button" class="btn-mobile-keyboard" id="btnToggleKb" onclick="focusKeyboard()">⌨️ Keyboard</button>
 
   <!-- HUD -->
   <div class="hud" id="gameHud" style="display:none;">
@@ -317,8 +304,9 @@
       <div class="hud-badge" id="hudShieldBadge" style="color:var(--danger);">
         <span>SHIELD:</span> <b id="valShield">100%</b>
       </div>
+      <button type="button" class="btn-hud" id="btnOrientationHud" onclick="toggleScreenOrientation()">🔄 Landscape</button>
       <button type="button" class="btn-hud" id="btnAudioToggle" onclick="toggleAudio()">🔊 SFX</button>
-      <button type="button" class="btn-hud btn-hud-danger" onclick="stopGamePrematurely()">⏹ END GAME</button>
+      <button type="button" class="btn-hud btn-hud-danger" onclick="stopGamePrematurely()">⏹ END</button>
       <button type="button" class="btn-hud" onclick="exitToMenu()">MENU</button>
     </div>
   </div>
@@ -326,55 +314,50 @@
   <!-- MAIN MENU -->
   <div class="overlay-screen" id="menuScreen">
     <div class="arcade-title">⚡ TypeArcade</div>
-    <div class="arcade-sub">Each mode features unique weapons, animations, and sound effects. Tap any mode to begin!</div>
+    <div class="arcade-sub">Starts in Portrait by default on mobile. Tap any mode and start typing immediately!</div>
 
     <div class="modes-grid">
       <div class="mode-card selected" onclick="selectMode('bottle')" id="card_bottle">
         <h3>🍾 Bottle Cracker</h3>
-        <p>Words are printed on glass bottles. Fire steel cannonballs to crack them into shards!</p>
-        <span class="mode-tag">Weapon: ⚙️ Steel Slingshot</span>
+        <p>Words are printed on glass bottles. Launch steel balls to crack them!</p>
       </div>
 
       <div class="mode-card" onclick="selectMode('blaster')" id="card_blaster">
         <h3>☄️ Meteor Blaster</h3>
-        <p>Defend ground base against cosmic word-meteors using heavy dual energy guns.</p>
-        <span class="mode-tag">Weapon: 🔫 Dual Plasma Blaster</span>
+        <p>Defend base against cosmic meteors using heavy plasma guns.</p>
       </div>
 
       <div class="mode-card" onclick="selectMode('archery')" id="card_archery">
         <h3>🏹 Target Archery</h3>
-        <p>Hit falling high-speed bullseye banners with razor-sharp golden arrows.</p>
-        <span class="mode-tag">Weapon: 🏹 Golden Bow & Arrow</span>
+        <p>Hit high-speed target banners with razor golden arrows.</p>
       </div>
 
       <div class="mode-card" onclick="selectMode('racer')" id="card_racer">
         <h3>🏎 Neon Highway</h3>
-        <p>Speed down the cyber highway. Words power up your nitro turbo boost!</p>
-        <span class="mode-tag">Vehicle: 🏎 Turbo Laser Muscle Car</span>
+        <p>Highway race. Accurate typing powers your turbo nitro engine.</p>
       </div>
 
       <div class="mode-card" onclick="selectMode('invaders')" id="card_invaders">
         <h3>🛸 Star Invaders</h3>
-        <p>Alien motherfleet descending in formation. Fire homing photon missiles.</p>
-        <span class="mode-tag">Weapon: 🚀 Galactic Starfighter</span>
+        <p>Alien motherfleet descending in waves. Fire photon missiles.</p>
       </div>
 
       <div class="mode-card" onclick="selectMode('bombs')" id="card_bombs">
         <h3>💣 Bomb Disarmer</h3>
-        <p>High-tension ticking explosives. Fire lightning zap lasers to defuse fuses.</p>
-        <span class="mode-tag">Weapon: ⚡ Laser Sniper Disarmer</span>
+        <p>Ticking explosives. Fire lightning zap lasers to defuse fuses.</p>
       </div>
     </div>
 
     <!-- VOCABULARY DIFFICULTY -->
     <div class="selector-bar">
       <span style="font-size:0.75rem; font-weight:800; color:var(--muted); text-transform:uppercase;">Vocabulary:</span>
-      <button type="button" class="btn-pill active" onclick="setDiff('rookie')" id="diff_rookie">Rookie (3-5 Letters)</button>
-      <button type="button" class="btn-pill" onclick="setDiff('pro')" id="diff_pro">Pro (6-9 Letters)</button>
-      <button type="button" class="btn-pill" onclick="setDiff('cyber')" id="diff_cyber">Cyber (Tech / Dev)</button>
+      <button type="button" class="btn-pill active" onclick="setDiff('rookie')" id="diff_rookie">Rookie (3-5)</button>
+      <button type="button" class="btn-pill" onclick="setDiff('pro')" id="diff_pro">Pro (6-9)</button>
+      <button type="button" class="btn-pill" onclick="setDiff('cyber')" id="diff_cyber">Cyber (Tech)</button>
+      <button type="button" class="btn-pill" id="btnOrientationMenu" onclick="toggleScreenOrientation()" style="border-color:var(--primary); color:var(--primary);">🔄 Landscape Mode</button>
     </div>
 
-    <button type="button" class="btn-play" onclick="launchGame()">🚀 START MISSION</button>
+    <button type="button" class="btn-play" onclick="launchGame()">🚀 START GAME</button>
   </div>
 
   <!-- MISSION REPORT OVERLAY -->
@@ -401,9 +384,9 @@
       </div>
     </div>
 
-    <div style="display:flex; gap:10px;">
+    <div style="display:flex; gap:8px;">
       <button type="button" class="btn-play" onclick="launchGame()">🔄 PLAY AGAIN</button>
-      <button type="button" class="btn-hud" style="font-size:0.95rem; padding:10px 24px;" onclick="exitToMenu()">Change Mode</button>
+      <button type="button" class="btn-hud" style="font-size:0.95rem; padding:10px 22px;" onclick="exitToMenu()">Change Mode</button>
     </div>
   </div>
 
@@ -416,6 +399,7 @@
 
     let audioEnabled = true;
     let audioCtx = null;
+    let currentOrientationState = 'portrait'; // DEFAULT IS PORTRAIT
 
     function playSfx(type) {
       if (!audioEnabled) return;
@@ -516,6 +500,45 @@
       document.getElementById('btnAudioToggle').innerText = audioEnabled ? '🔊 SFX' : '🔇 Muted';
     }
 
+    // ORIENTATION TOGGLE (PORTRAIT BY DEFAULT, USER CAN TOGGLE TO LANDSCAPE)
+    async function toggleScreenOrientation() {
+      try {
+        if (!document.fullscreenElement) {
+          if (document.documentElement.requestFullscreen) {
+            await document.documentElement.requestFullscreen();
+          }
+        }
+        if (screen.orientation && screen.orientation.lock) {
+          if (currentOrientationState === 'portrait') {
+            await screen.orientation.lock('landscape');
+            currentOrientationState = 'landscape';
+            updateOrientationButtons('🔄 Portrait');
+          } else {
+            await screen.orientation.lock('portrait');
+            currentOrientationState = 'portrait';
+            updateOrientationButtons('🔄 Landscape');
+          }
+        }
+      } catch (e) {
+        // Fallback for browsers that don't support programmatic orientation lock
+        if (currentOrientationState === 'portrait') {
+          currentOrientationState = 'landscape';
+          updateOrientationButtons('🔄 Portrait');
+        } else {
+          currentOrientationState = 'portrait';
+          updateOrientationButtons('🔄 Landscape');
+        }
+      }
+      resize();
+    }
+
+    function updateOrientationButtons(label) {
+      const btnMenu = document.getElementById('btnOrientationMenu');
+      const btnHud = document.getElementById('btnOrientationHud');
+      if (btnMenu) btnMenu.innerText = label;
+      if (btnHud) btnHud.innerText = label;
+    }
+
     function focusKeyboard() {
       if (mobileInput) {
         mobileInput.focus();
@@ -583,19 +606,7 @@
       document.getElementById(`diff_${d}`).classList.add('active');
     }
 
-    async function requestAppScreen() {
-      try {
-        if (document.documentElement.requestFullscreen) {
-          await document.documentElement.requestFullscreen();
-        }
-        if (screen.orientation && screen.orientation.lock) {
-          await screen.orientation.lock('landscape');
-        }
-      } catch (e) {}
-    }
-
     function launchGame() {
-      requestAppScreen();
       document.getElementById('menuScreen').style.display = 'none';
       document.getElementById('gameOverScreen').style.display = 'none';
       document.getElementById('gameHud').style.display = 'flex';
@@ -627,7 +638,6 @@
       requestAnimationFrame(gameLoop);
     }
 
-    /* IN-GAME STOP BUTTON: END GAME OPTION IN EVERY MODE */
     function stopGamePrematurely() {
       if (!isPlaying) return;
       triggerGameOver("SESSION COMPLETED");
@@ -642,7 +652,7 @@
 
     function spawnInvadersWave() {
       const bank = dicts[selectedDiff];
-      const cols = Math.min(Math.floor(canvas.width / 150), 6);
+      const cols = Math.min(Math.floor(canvas.width / 130), 5);
       for (let r = 0; r < 3; r++) {
         for (let c = 0; c < cols; c++) {
           const text = bank[Math.floor(Math.random() * bank.length)];
@@ -650,8 +660,8 @@
             text: text,
             remaining: text,
             typed: "",
-            x: 90 + c * 135,
-            y: 65 + r * 55,
+            x: 50 + c * 115,
+            y: 65 + r * 50,
             speedX: 0.65,
             speedY: 0.05,
             isInvader: true
@@ -663,7 +673,7 @@
     function spawnItem() {
       const bank = dicts[selectedDiff];
       const text = bank[Math.floor(Math.random() * bank.length)];
-      const x = 90 + Math.random() * (canvas.width - 240);
+      const x = 50 + Math.random() * (canvas.width - 160);
 
       if (selectedMode === 'racer') {
         itemsOnScreen.push({
@@ -698,15 +708,13 @@
       }
     }
 
-    /* FIRE WEAPON CORRESPONDING SPECIFICALLY TO THE ACTIVE GAME MODE */
     function fireModeWeapon(target) {
       const startX = canvas.width / 2;
       const startY = canvas.height - 42;
-      const endX = target.x + 40;
+      const endX = target.x + 35;
       const endY = target.y;
 
       if (selectedMode === 'bottle') {
-        // Steel Slingshot Cannonball
         playSfx('cannon');
         projectiles.push({
           type: 'cannonball',
@@ -718,7 +726,6 @@
           speed: 0.09
         });
       } else if (selectedMode === 'archery') {
-        // Golden Razor Arrow
         playSfx('arrow');
         projectiles.push({
           type: 'arrow',
@@ -730,7 +737,6 @@
           speed: 0.08
         });
       } else if (selectedMode === 'blaster') {
-        // Heavy Dual Plasma Blaster
         playSfx('blaster');
         projectiles.push({
           type: 'laser',
@@ -742,7 +748,6 @@
           color: '#38bdf8'
         });
       } else if (selectedMode === 'bombs') {
-        // Laser Zap Disarmer
         playSfx('zap');
         projectiles.push({
           type: 'laser',
@@ -754,7 +759,6 @@
           color: '#f59e0b'
         });
       } else if (selectedMode === 'invaders') {
-        // Photon Missile
         playSfx('blaster');
         projectiles.push({
           type: 'missile',
@@ -766,7 +770,6 @@
           speed: 0.085
         });
       } else {
-        // Racer Nitro Pulse
         playSfx('blaster');
         projectiles.push({
           type: 'laser',
@@ -794,7 +797,7 @@
           streak++;
 
           fireModeWeapon(activeTarget);
-          createBurst(activeTarget.x + 30, activeTarget.y, 4, '#38bdf8');
+          createBurst(activeTarget.x + 25, activeTarget.y, 4, '#38bdf8');
 
           if (activeTarget.remaining.length === 0) {
             score += activeTarget.text.length * 15 * Math.min(streak, 10);
@@ -802,10 +805,10 @@
 
             if (selectedMode === 'bottle') {
               playSfx('glassCrack');
-              createGlassShatter(activeTarget.x + 35, activeTarget.y);
+              createGlassShatter(activeTarget.x + 30, activeTarget.y);
             } else {
               playSfx('explode');
-              createBurst(activeTarget.x + 35, activeTarget.y, 25, '#f59e0b');
+              createBurst(activeTarget.x + 30, activeTarget.y, 25, '#f59e0b');
             }
 
             itemsOnScreen = itemsOnScreen.filter(w => w !== activeTarget);
@@ -831,7 +834,7 @@
           streak = 1;
 
           fireModeWeapon(activeTarget);
-          createBurst(activeTarget.x + 30, activeTarget.y, 4, '#38bdf8');
+          createBurst(activeTarget.x + 25, activeTarget.y, 4, '#38bdf8');
         }
       }
 
@@ -889,7 +892,6 @@
       }
     }
 
-    /* MAIN RENDER LOOP */
     function gameLoop(time) {
       if (!isPlaying) return;
 
@@ -905,10 +907,10 @@
         if (itemsOnScreen.length === 0) spawnInvadersWave();
       }
 
-      const baseHeight = 52;
+      const baseHeight = 50;
       const baseY = canvas.height - baseHeight;
 
-      // 1. DRAW BOTTOM NEON DEFENSE BARRIER
+      // 1. DRAW GLOWING BOTTOM DEFENSE PLATFORM
       const grad = ctx.createLinearGradient(0, baseY, 0, canvas.height);
       grad.addColorStop(0, 'rgba(56, 189, 248, 0.45)');
       grad.addColorStop(0.35, 'rgba(16, 185, 129, 0.35)');
@@ -917,9 +919,9 @@
       ctx.fillRect(0, baseY, canvas.width, baseHeight);
 
       ctx.strokeStyle = activeTarget ? '#f59e0b' : '#38bdf8';
-      ctx.lineWidth = 3.5;
+      ctx.lineWidth = 3;
       ctx.shadowColor = activeTarget ? '#f59e0b' : '#38bdf8';
-      ctx.shadowBlur = 18;
+      ctx.shadowBlur = 16;
       ctx.beginPath();
       ctx.moveTo(0, baseY);
       ctx.lineTo(canvas.width, baseY);
@@ -931,24 +933,23 @@
       ctx.strokeStyle = '#38bdf8';
       ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.arc(canvas.width / 2, canvas.height - 12, 28, Math.PI, 0);
+      ctx.arc(canvas.width / 2, canvas.height - 12, 26, Math.PI, 0);
       ctx.fill();
       ctx.stroke();
 
-      // Mode-specific Turret Icon
-      ctx.font = "20px system-ui";
+      ctx.font = "18px system-ui";
       ctx.textAlign = "center";
-      let turretIcon = "⚙️";
+      let turretIcon = "⚙️️";
       if (selectedMode === 'bottle') turretIcon = "⚙️";
       else if (selectedMode === 'archery') turretIcon = "🏹";
       else if (selectedMode === 'blaster') turretIcon = "🔫";
       else if (selectedMode === 'bombs') turretIcon = "⚡";
       else if (selectedMode === 'invaders') turretIcon = "🚀";
       else if (selectedMode === 'racer') turretIcon = "🏎";
-      ctx.fillText(turretIcon, canvas.width / 2, canvas.height - 16);
+      ctx.fillText(turretIcon, canvas.width / 2, canvas.height - 15);
       ctx.textAlign = "left";
 
-      // 2. DRAW AND UPDATE PROJECTILES
+      // 2. PROJECTILES
       for (let i = projectiles.length - 1; i >= 0; i--) {
         const p = projectiles[i];
         if (p.type === 'laser') {
@@ -969,21 +970,18 @@
           const currY = p.y + (p.targetY - p.y) * p.progress;
 
           if (p.type === 'cannonball') {
-            // Steel Ball
             ctx.fillStyle = '#cbd5e1';
             ctx.beginPath();
             ctx.arc(currX, currY, 6, 0, Math.PI * 2);
             ctx.fill();
           } else if (p.type === 'arrow') {
-            // Golden Arrow
             ctx.strokeStyle = '#f59e0b';
             ctx.lineWidth = 3;
             ctx.beginPath();
             ctx.moveTo(currX, currY);
-            ctx.lineTo(currX, currY + 14);
+            ctx.lineTo(currX, currY + 12);
             ctx.stroke();
           } else if (p.type === 'missile') {
-            // Photon Rocket
             ctx.fillStyle = '#38bdf8';
             ctx.beginPath();
             ctx.arc(currX, currY, 5, 0, Math.PI * 2);
@@ -994,20 +992,20 @@
         }
       }
 
-      // 3. DRAW AND UPDATE TARGET WORDS
+      // 3. TARGET WORDS
       if (selectedMode === 'invaders') {
         let hitEdge = false;
         itemsOnScreen.forEach(item => {
           item.x += item.speedX * invadersDir;
-          if (item.x < 30 || item.x > canvas.width - 160) hitEdge = true;
+          if (item.x < 20 || item.x > canvas.width - 130) hitEdge = true;
         });
         if (hitEdge) {
           invadersDir *= -1;
-          itemsOnScreen.forEach(item => { item.y += 20; });
+          itemsOnScreen.forEach(item => { item.y += 18; });
         }
       }
 
-      ctx.font = "900 24px system-ui, -apple-system, sans-serif";
+      ctx.font = "900 22px system-ui, -apple-system, sans-serif";
 
       for (let i = itemsOnScreen.length - 1; i >= 0; i--) {
         const item = itemsOnScreen[i];
@@ -1021,14 +1019,12 @@
         }
 
         const textMetrics = ctx.measureText(item.text);
-        const boxWidth = textMetrics.width + 24;
-        const boxHeight = 36;
-        const boxX = item.x - 12;
-        const boxY = item.y - 25;
+        const boxWidth = textMetrics.width + 20;
+        const boxHeight = 34;
+        const boxX = item.x - 10;
+        const boxY = item.y - 23;
 
-        // HIGH CONTRAST CONTAINER
         if (selectedMode === 'bottle') {
-          // Glass Bottle outline & neck
           ctx.fillStyle = "rgba(15, 23, 42, 0.9)";
           ctx.strokeStyle = item === activeTarget ? "#f59e0b" : "#38bdf8";
           ctx.lineWidth = 2;
@@ -1038,7 +1034,7 @@
           ctx.stroke();
 
           ctx.strokeStyle = "rgba(56, 189, 248, 0.7)";
-          ctx.strokeRect(boxX - 6, boxY + 10, 6, 16);
+          ctx.strokeRect(boxX - 5, boxY + 8, 5, 16);
         } else {
           ctx.fillStyle = "rgba(15, 23, 42, 0.88)";
           ctx.strokeStyle = item === activeTarget ? "#f59e0b" : "rgba(255,255,255,0.2)";
@@ -1049,7 +1045,6 @@
           ctx.stroke();
         }
 
-        // BOLD TEXT RENDERING (GREEN FOR TYPED, YELLOW/WHITE FOR REMAINING)
         let drawX = item.x;
         if (item.typed.length > 0) {
           ctx.fillStyle = "#10b981";
@@ -1060,7 +1055,6 @@
         ctx.fillStyle = (item === activeTarget) ? "#f59e0b" : "#ffffff";
         ctx.fillText(item.remaining, drawX, item.y);
 
-        // Bomb Fuse Bar
         if (item.isBomb) {
           ctx.fillStyle = "rgba(255,255,255,0.2)";
           ctx.fillRect(boxX, boxY - 8, boxWidth, 4);
@@ -1078,7 +1072,7 @@
         }
       }
 
-      // 4. DRAW AND UPDATE PARTICLES
+      // 4. PARTICLES
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.x += p.vx;
@@ -1102,7 +1096,7 @@
     }
 
     function triggerHit(item, index) {
-      createBurst(item.x + 30, item.y, 18, '#ef4444');
+      createBurst(item.x + 25, item.y, 18, '#ef4444');
       itemsOnScreen.splice(index, 1);
       if (item === activeTarget) activeTarget = null;
       streak = 0;
