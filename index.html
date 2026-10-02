@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
-  <title>TypeArcade - Weapon Typing & Bottle Cracker Suite</title>
-  <meta name="description" content="Ultimate English typing arcade game with Bow & Arrow, Laser Gun, Bottle Cracking physics, and instant end-game controls.">
+  <title>TypeArcade - 6 Thematic Typing Games Suite</title>
+  <meta name="description" content="Poki-style English typing arcade. Unique weapons for each game: Slingshot Bottle Cracker, Dual Blaster Gun, Space Starfighter, Cyber Racer, and Sniper Disarmer.">
 
   <!-- Privacy Analytics -->
   <script data-goatcounter="https://quicktools.goatcounter.com/count"
           data-goatcounter-settings='{"allow_local": true}'
           async src="//gc.zgo.at/count.js"></script>
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a' stroke='%2338bdf8' stroke-width='1.5'/%3E%3Cpath d='M8 24 L24 8 M16 8 L24 8 L24 16' stroke='%23f59e0b' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a' stroke='%2338bdf8' stroke-width='1.5'/%3E%3Cpolygon points='10,8 24,16 10,24' fill='%2338bdf8'/%3E%3C/svg%3E">
 
   <style>
     :root {
-      --bg: #030712;
+      --bg: #020617;
       --card: #0f172a;
       --card-border: #1e293b;
       --primary: #38bdf8;
@@ -51,7 +51,7 @@
       width: 100vw;
       height: 100vh;
       height: 100dvh;
-      background: radial-gradient(circle at center, #0a1329 0%, #020617 100%);
+      background: radial-gradient(circle at center, #09152e 0%, #020617 100%);
     }
 
     /* ARCADE HUD */
@@ -74,7 +74,7 @@
     }
 
     .hud-badge {
-      background: rgba(15, 23, 42, 0.88);
+      background: rgba(15, 23, 42, 0.9);
       border: 1px solid rgba(56, 189, 248, 0.35);
       backdrop-filter: blur(8px);
       padding: 5px 12px;
@@ -103,8 +103,15 @@
       transition: all 0.15s ease;
     }
     .btn-hud:hover { border-color: var(--primary); transform: scale(1.03); }
-    .btn-hud-danger { border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
-    .btn-hud-danger:hover { border-color: var(--danger); }
+    .btn-hud-danger {
+      border-color: rgba(239, 68, 68, 0.6);
+      color: #fca5a5;
+      background: rgba(239, 68, 68, 0.18);
+    }
+    .btn-hud-danger:hover {
+      border-color: var(--danger);
+      background: rgba(239, 68, 68, 0.35);
+    }
 
     /* OVERLAYS */
     .overlay-screen {
@@ -114,7 +121,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: rgba(3, 7, 18, 0.92);
+      background: rgba(2, 6, 23, 0.93);
       backdrop-filter: blur(14px);
       padding: 16px;
       text-align: center;
@@ -133,17 +140,17 @@
     .arcade-sub {
       color: var(--muted);
       font-size: clamp(0.85rem, 2vw, 1rem);
-      max-width: 580px;
+      max-width: 620px;
       line-height: 1.4;
       margin-bottom: 14px;
     }
 
-    /* GAME MODES GRID (6 MODES) */
+    /* 6 GAME MODES GRID */
     .modes-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      max-width: 820px;
+      gap: 10px;
+      max-width: 860px;
       width: 100%;
       margin-bottom: 14px;
     }
@@ -155,8 +162,8 @@
     .mode-card {
       background: var(--card);
       border: 2px solid var(--card-border);
-      border-radius: 10px;
-      padding: 10px;
+      border-radius: 12px;
+      padding: 12px;
       cursor: pointer;
       transition: all 0.15s ease;
       text-align: left;
@@ -164,49 +171,50 @@
     .mode-card:hover, .mode-card.selected {
       border-color: var(--primary);
       transform: translateY(-2px);
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
       background: rgba(15, 23, 42, 0.95);
     }
     .mode-card h3 {
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       font-weight: 800;
       color: #fff;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       margin-bottom: 3px;
     }
     .mode-card p {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: var(--muted);
-      line-height: 1.3;
+      line-height: 1.35;
+    }
+    .mode-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 5px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
     }
 
-    /* CUSTOMIZERS (WEAPONS & DIFFICULTY) */
     .selector-bar {
       display: flex;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-    }
-
-    .selector-label {
-      font-size: 0.75rem;
-      font-weight: 800;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
     }
 
     .btn-pill {
       background: var(--card);
       border: 1px solid var(--card-border);
       color: var(--muted);
-      padding: 5px 12px;
+      padding: 5px 14px;
       border-radius: 9999px;
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       font-weight: 800;
       cursor: pointer;
     }
@@ -220,18 +228,17 @@
       background: var(--primary);
       color: #030712;
       border: none;
-      padding: 12px 42px;
+      padding: 13px 44px;
       font-size: 1.15rem;
       font-weight: 900;
       border-radius: 9999px;
       cursor: pointer;
       box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
       transition: transform 0.1s ease;
-      margin-top: 6px;
+      margin-top: 4px;
     }
     .btn-play:active { transform: scale(0.96); }
 
-    /* SUMMARY SCORE BOX */
     .score-summary-box {
       background: rgba(15, 23, 42, 0.95);
       border: 1px solid var(--card-border);
@@ -245,10 +252,10 @@
       gap: 10px;
       text-align: left;
     }
-    .summary-item strong { display: block; font-size: 1.2rem; color: #fff; }
+    .summary-item strong { display: block; font-size: 1.25rem; color: #fff; }
     .summary-item span { font-size: 0.72rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
 
-    /* ANDROID-COMPLIANT TOUCH CATCHER */
+    /* FULLSCREEN ANDROID CATCHER */
     #mobileKeyInput {
       position: fixed;
       top: 0;
@@ -257,7 +264,7 @@
       height: 100vh;
       opacity: 0;
       z-index: 5;
-      font-size: 16px; /* Prevents iOS/Android auto-zoom on focus */
+      font-size: 16px;
       background: transparent;
       border: none;
       outline: none;
@@ -268,10 +275,10 @@
     .btn-mobile-keyboard {
       display: none;
       position: absolute;
-      bottom: 58px;
+      bottom: 60px;
       right: 14px;
       z-index: 15;
-      background: rgba(56, 189, 248, 0.2);
+      background: rgba(56, 189, 248, 0.25);
       border: 1px solid var(--primary);
       color: #fff;
       font-size: 0.8rem;
@@ -281,7 +288,6 @@
       backdrop-filter: blur(8px);
       cursor: pointer;
     }
-
     @media (pointer: coarse) {
       .btn-mobile-keyboard { display: block; }
     }
@@ -290,6 +296,8 @@
 <body>
 
   <canvas id="gameCanvas"></canvas>
+
+  <button type="button" class="btn-mobile-keyboard" id="btnToggleKb" onclick="focusKeyboard()">⌨️ Show Keyboard</button>
 
   <!-- HUD -->
   <div class="hud" id="gameHud" style="display:none;">
@@ -306,9 +314,6 @@
     </div>
 
     <div class="hud-group">
-      <div class="hud-badge" id="hudTimerBadge" style="color:var(--purple); display:none;">
-        <span>TIME:</span> <b id="valTimer">60s</b>
-      </div>
       <div class="hud-badge" id="hudShieldBadge" style="color:var(--danger);">
         <span>SHIELD:</span> <b id="valShield">100%</b>
       </div>
@@ -321,64 +326,61 @@
   <!-- MAIN MENU -->
   <div class="overlay-screen" id="menuScreen">
     <div class="arcade-title">⚡ TypeArcade</div>
-    <div class="arcade-sub">Choose your game mode & weapon. Destroy bottles, dodge meteors, or defuse ticking bombs!</div>
+    <div class="arcade-sub">Each mode features unique weapons, animations, and sound effects. Tap any mode to begin!</div>
 
-    <!-- 6 GAME MODES -->
     <div class="modes-grid">
       <div class="mode-card selected" onclick="selectMode('bottle')" id="card_bottle">
         <h3>🍾 Bottle Cracker</h3>
-        <p>Words are printed on glass bottles. Type to shatter them into flying fragments!</p>
+        <p>Words are printed on glass bottles. Fire steel cannonballs to crack them into shards!</p>
+        <span class="mode-tag">Weapon: ⚙️ Steel Slingshot</span>
+      </div>
+
+      <div class="mode-card" onclick="selectMode('blaster')" id="card_blaster">
+        <h3>☄️ Meteor Blaster</h3>
+        <p>Defend ground base against cosmic word-meteors using heavy dual energy guns.</p>
+        <span class="mode-tag">Weapon: 🔫 Dual Plasma Blaster</span>
       </div>
 
       <div class="mode-card" onclick="selectMode('archery')" id="card_archery">
-        <h3>🏹 Bow & Arrow</h3>
-        <p>Fire high-speed golden arrows from your bottom bow straight into target words.</p>
-      </div>
-
-      <div class="mode-card" onclick="selectMode('meteor')" id="card_meteor">
-        <h3>☄️ Meteor Storm</h3>
-        <p>Dual laser blaster cannon defense against falling orbital word meteors.</p>
+        <h3>🏹 Target Archery</h3>
+        <p>Hit falling high-speed bullseye banners with razor-sharp golden arrows.</p>
+        <span class="mode-tag">Weapon: 🏹 Golden Bow & Arrow</span>
       </div>
 
       <div class="mode-card" onclick="selectMode('racer')" id="card_racer">
         <h3>🏎 Neon Highway</h3>
-        <p>Horizontal race track. Typing accelerates your car and shatters road blockers.</p>
+        <p>Speed down the cyber highway. Words power up your nitro turbo boost!</p>
+        <span class="mode-tag">Vehicle: 🏎 Turbo Laser Muscle Car</span>
       </div>
 
       <div class="mode-card" onclick="selectMode('invaders')" id="card_invaders">
-        <h3>🛸 Space Invaders</h3>
-        <p>Tactical alien word ships descending in coordinated formation waves.</p>
+        <h3>🛸 Star Invaders</h3>
+        <p>Alien motherfleet descending in formation. Fire homing photon missiles.</p>
+        <span class="mode-tag">Weapon: 🚀 Galactic Starfighter</span>
       </div>
 
       <div class="mode-card" onclick="selectMode('bombs')" id="card_bombs">
-        <h3>💣 Bomb Defusal</h3>
-        <p>Pressure test with ticking fuses. Defuse each bomb before detonation!</p>
+        <h3>💣 Bomb Disarmer</h3>
+        <p>High-tension ticking explosives. Fire lightning zap lasers to defuse fuses.</p>
+        <span class="mode-tag">Weapon: ⚡ Laser Sniper Disarmer</span>
       </div>
     </div>
 
-    <!-- WEAPON SELECTOR -->
+    <!-- VOCABULARY DIFFICULTY -->
     <div class="selector-bar">
-      <span class="selector-label">Weapon:</span>
-      <button type="button" class="btn-pill active" onclick="setWeapon('bow')" id="wep_bow">🏹 Bow & Arrow</button>
-      <button type="button" class="btn-pill" onclick="setWeapon('blaster')" id="wep_blaster">🔫 Dual Blaster</button>
-      <button type="button" class="btn-pill" onclick="setWeapon('magic')" id="wep_magic">✨ Magic Wand</button>
-    </div>
-
-    <!-- DIFFICULTY SELECTOR -->
-    <div class="selector-bar">
-      <span class="selector-label">Vocabulary:</span>
+      <span style="font-size:0.75rem; font-weight:800; color:var(--muted); text-transform:uppercase;">Vocabulary:</span>
       <button type="button" class="btn-pill active" onclick="setDiff('rookie')" id="diff_rookie">Rookie (3-5 Letters)</button>
       <button type="button" class="btn-pill" onclick="setDiff('pro')" id="diff_pro">Pro (6-9 Letters)</button>
       <button type="button" class="btn-pill" onclick="setDiff('cyber')" id="diff_cyber">Cyber (Tech / Dev)</button>
     </div>
 
-    <button type="button" class="btn-play" onclick="launchGame()">🚀 START GAME</button>
+    <button type="button" class="btn-play" onclick="launchGame()">🚀 START MISSION</button>
   </div>
 
-  <!-- GAME OVER / MID-GAME FINISH SCREEN -->
+  <!-- MISSION REPORT OVERLAY -->
   <div class="overlay-screen" id="gameOverScreen" style="display:none;">
     <div class="arcade-title" style="color:var(--accent);" id="goTitle">MISSION REPORT</div>
-    <div class="arcade-sub" id="goSubtitle">Great session! Here is your performance overview:</div>
+    <div class="arcade-sub" id="goSubtitle">Detailed performance summary:</div>
 
     <div class="score-summary-box">
       <div class="summary-item">
@@ -387,11 +389,11 @@
       </div>
       <div class="summary-item">
         <strong id="repWpm" style="color:var(--success);">0 WPM</strong>
-        <span>Net Speed</span>
+        <span>Net Typing Speed</span>
       </div>
       <div class="summary-item">
         <strong id="repDestroyed" style="color:var(--accent);">0</strong>
-        <span>Targets Cracked</span>
+        <span>Targets Destroyed</span>
       </div>
       <div class="summary-item">
         <strong id="repAccuracy" style="color:var(--purple);">100%</strong>
@@ -421,51 +423,74 @@
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const now = audioCtx.currentTime;
 
-        if (type === 'arrow') {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(400, now);
-          osc.frequency.exponentialRampToValueAtTime(1200, now + 0.09);
-          gain.gain.setValueAtTime(0.18, now);
-          gain.gain.linearRampToValueAtTime(0.01, now + 0.09);
-          osc.start(now);
-          osc.stop(now + 0.09);
-        } else if (type === 'laser') {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(950, now);
-          osc.frequency.exponentialRampToValueAtTime(160, now + 0.08);
-          gain.gain.setValueAtTime(0.12, now);
-          gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
-          osc.start(now);
-          osc.stop(now + 0.08);
-        } else if (type === 'glassCrack') {
-          // Synthesized crisp glass shattering noise
+        if (type === 'cannon') {
           const osc = audioCtx.createOscillator();
           const gain = audioCtx.createGain();
           osc.connect(gain);
           gain.connect(audioCtx.destination);
           osc.type = 'square';
-          osc.frequency.setValueAtTime(2400, now);
-          osc.frequency.exponentialRampToValueAtTime(300, now + 0.15);
-          gain.gain.setValueAtTime(0.22, now);
-          gain.gain.linearRampToValueAtTime(0.01, now + 0.15);
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(80, now + 0.1);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
           osc.start(now);
-          osc.stop(now + 0.15);
+          osc.stop(now + 0.1);
+        } else if (type === 'arrow') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(350, now);
+          osc.frequency.exponentialRampToValueAtTime(1100, now + 0.08);
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'blaster') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(140, now + 0.09);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.09);
+          osc.start(now);
+          osc.stop(now + 0.09);
+        } else if (type === 'zap') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(1500, now);
+          osc.frequency.exponentialRampToValueAtTime(400, now + 0.07);
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.07);
+          osc.start(now);
+          osc.stop(now + 0.07);
+        } else if (type === 'glassCrack') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(2200, now);
+          osc.frequency.exponentialRampToValueAtTime(250, now + 0.16);
+          gain.gain.setValueAtTime(0.24, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.16);
+          osc.start(now);
+          osc.stop(now + 0.16);
         } else if (type === 'explode') {
           const osc = audioCtx.createOscillator();
           const gain = audioCtx.createGain();
           osc.connect(gain);
           gain.connect(audioCtx.destination);
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(150, now);
-          osc.frequency.exponentialRampToValueAtTime(30, now + 0.22);
+          osc.frequency.setValueAtTime(160, now);
+          osc.frequency.exponentialRampToValueAtTime(25, now + 0.22);
           gain.gain.setValueAtTime(0.28, now);
           gain.gain.linearRampToValueAtTime(0.01, now + 0.22);
           osc.start(now);
@@ -491,6 +516,13 @@
       document.getElementById('btnAudioToggle').innerText = audioEnabled ? '🔊 SFX' : '🔇 Muted';
     }
 
+    function focusKeyboard() {
+      if (mobileInput) {
+        mobileInput.focus();
+        mobileInput.click();
+      }
+    }
+
     const dicts = {
       rookie: [
         "sky", "run", "fast", "game", "jump", "hero", "play", "cool",
@@ -513,7 +545,6 @@
     };
 
     let selectedMode = 'bottle';
-    let selectedWeapon = 'bow';
     let selectedDiff = 'rookie';
     let isPlaying = false;
 
@@ -530,7 +561,7 @@
     let particles = [];
     let activeTarget = null;
     let lastSpawn = 0;
-    let spawnRate = 2100;
+    let spawnRate = 2000;
     let invadersDir = 1;
 
     function resize() {
@@ -544,12 +575,6 @@
       selectedMode = m;
       document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
       document.getElementById(`card_${m}`).classList.add('selected');
-    }
-
-    function setWeapon(w) {
-      selectedWeapon = w;
-      document.querySelectorAll('.selector-bar button[id^="wep_"]').forEach(b => b.classList.remove('active'));
-      document.getElementById(`wep_${w}`).classList.add('active');
     }
 
     function setDiff(d) {
@@ -567,15 +592,6 @@
           await screen.orientation.lock('landscape');
         }
       } catch (e) {}
-    }
-
-    
-    function focusKeyboard() {
-      const input = document.getElementById('mobileKeyInput');
-      if (input) {
-        input.focus();
-        input.click();
-      }
     }
 
     function launchGame() {
@@ -606,16 +622,15 @@
         spawnInvadersWave();
       }
 
-      mobileInput.focus();
-      mobileInput.value = "";
+      focusKeyboard();
       lastSpawn = performance.now();
       requestAnimationFrame(gameLoop);
     }
 
-    /* PREMATURE / USER-TRIGGERED GAME TERMINATION */
+    /* IN-GAME STOP BUTTON: END GAME OPTION IN EVERY MODE */
     function stopGamePrematurely() {
       if (!isPlaying) return;
-      triggerGameOver("SESSION COMPLETED (ENDED)");
+      triggerGameOver("SESSION COMPLETED");
     }
 
     function exitToMenu() {
@@ -671,7 +686,6 @@
           isBomb: true
         });
       } else {
-        // Bottle / Archery / Meteor
         itemsOnScreen.push({
           text: text,
           remaining: text,
@@ -684,13 +698,27 @@
       }
     }
 
-    function fireWeapon(target) {
+    /* FIRE WEAPON CORRESPONDING SPECIFICALLY TO THE ACTIVE GAME MODE */
+    function fireModeWeapon(target) {
       const startX = canvas.width / 2;
-      const startY = canvas.height - 35;
+      const startY = canvas.height - 42;
       const endX = target.x + 40;
       const endY = target.y;
 
-      if (selectedWeapon === 'bow') {
+      if (selectedMode === 'bottle') {
+        // Steel Slingshot Cannonball
+        playSfx('cannon');
+        projectiles.push({
+          type: 'cannonball',
+          x: startX,
+          y: startY,
+          targetX: endX,
+          targetY: endY,
+          progress: 0,
+          speed: 0.09
+        });
+      } else if (selectedMode === 'archery') {
+        // Golden Razor Arrow
         playSfx('arrow');
         projectiles.push({
           type: 'arrow',
@@ -701,8 +729,9 @@
           progress: 0,
           speed: 0.08
         });
-      } else if (selectedWeapon === 'blaster') {
-        playSfx('laser');
+      } else if (selectedMode === 'blaster') {
+        // Heavy Dual Plasma Blaster
+        playSfx('blaster');
         projectiles.push({
           type: 'laser',
           startX: startX,
@@ -712,18 +741,41 @@
           life: 1.0,
           color: '#38bdf8'
         });
-      } else {
-        // Magic
-        playSfx('laser');
+      } else if (selectedMode === 'bombs') {
+        // Laser Zap Disarmer
+        playSfx('zap');
         projectiles.push({
-          type: 'magic',
+          type: 'laser',
+          startX: startX,
+          startY: startY,
+          targetX: endX,
+          targetY: endY,
+          life: 1.0,
+          color: '#f59e0b'
+        });
+      } else if (selectedMode === 'invaders') {
+        // Photon Missile
+        playSfx('blaster');
+        projectiles.push({
+          type: 'missile',
           x: startX,
           y: startY,
           targetX: endX,
           targetY: endY,
           progress: 0,
-          speed: 0.07,
-          color: '#c084fc'
+          speed: 0.085
+        });
+      } else {
+        // Racer Nitro Pulse
+        playSfx('blaster');
+        projectiles.push({
+          type: 'laser',
+          startX: 80,
+          startY: target.y,
+          targetX: endX,
+          targetY: endY,
+          life: 1.0,
+          color: '#10b981'
         });
       }
     }
@@ -741,14 +793,14 @@
           correctCharsTyped++;
           streak++;
 
-          fireWeapon(activeTarget);
+          fireModeWeapon(activeTarget);
           createBurst(activeTarget.x + 30, activeTarget.y, 4, '#38bdf8');
 
           if (activeTarget.remaining.length === 0) {
             score += activeTarget.text.length * 15 * Math.min(streak, 10);
             wordsDestroyed++;
 
-            if (activeTarget.isBottle || selectedMode === 'bottle') {
+            if (selectedMode === 'bottle') {
               playSfx('glassCrack');
               createGlassShatter(activeTarget.x + 35, activeTarget.y);
             } else {
@@ -778,12 +830,11 @@
           correctCharsTyped++;
           streak = 1;
 
-          fireWeapon(activeTarget);
+          fireModeWeapon(activeTarget);
           createBurst(activeTarget.x + 30, activeTarget.y, 4, '#38bdf8');
         }
       }
 
-      // Live WPM calculation
       const elapsedMin = Math.max((performance.now() - startTime) / 60000, 0.04);
       const wpm = Math.round((correctCharsTyped / 5) / elapsedMin);
 
@@ -806,7 +857,7 @@
     });
 
     canvas.addEventListener('pointerdown', () => {
-      if (isPlaying) mobileInput.focus();
+      if (isPlaying) focusKeyboard();
     });
 
     function createBurst(x, y, count, color) {
@@ -823,14 +874,13 @@
       }
     }
 
-    // BOTTLE CRACKING SHATTER PHYSICS
     function createGlassShatter(x, y) {
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 32; i++) {
         particles.push({
           x: x,
           y: y,
-          vx: (Math.random() - 0.5) * 11,
-          vy: (Math.random() - 0.5) * 11,
+          vx: (Math.random() - 0.5) * 12,
+          vy: (Math.random() - 0.5) * 12,
           life: 1.0,
           color: Math.random() > 0.5 ? '#38bdf8' : '#e0f2fe',
           size: Math.random() * 4 + 2,
@@ -839,7 +889,7 @@
       }
     }
 
-    /* MAIN RENDER & SIMULATION LOOP */
+    /* MAIN RENDER LOOP */
     function gameLoop(time) {
       if (!isPlaying) return;
 
@@ -858,15 +908,14 @@
       const baseHeight = 52;
       const baseY = canvas.height - baseHeight;
 
-      // 1. DRAW GLOWING MULTI-LAYER NEON DEFENSE PLATFORM
+      // 1. DRAW BOTTOM NEON DEFENSE BARRIER
       const grad = ctx.createLinearGradient(0, baseY, 0, canvas.height);
       grad.addColorStop(0, 'rgba(56, 189, 248, 0.45)');
-      grad.addColorStop(0.3, 'rgba(16, 185, 129, 0.35)');
-      grad.addColorStop(1, 'rgba(3, 7, 18, 0.98)');
+      grad.addColorStop(0.35, 'rgba(16, 185, 129, 0.35)');
+      grad.addColorStop(1, 'rgba(2, 6, 23, 0.98)');
       ctx.fillStyle = grad;
       ctx.fillRect(0, baseY, canvas.width, baseHeight);
 
-      // Neon Top Border Line with Dynamic Flare
       ctx.strokeStyle = activeTarget ? '#f59e0b' : '#38bdf8';
       ctx.lineWidth = 3.5;
       ctx.shadowColor = activeTarget ? '#f59e0b' : '#38bdf8';
@@ -877,7 +926,7 @@
       ctx.stroke();
       ctx.shadowBlur = 0;
 
-      // Center Weapon Turret/Launcher
+      // Center Launcher Turret
       ctx.fillStyle = '#0f172a';
       ctx.strokeStyle = '#38bdf8';
       ctx.lineWidth = 2.5;
@@ -886,11 +935,17 @@
       ctx.fill();
       ctx.stroke();
 
-      // Weapon Icon Graphic on Turret
+      // Mode-specific Turret Icon
       ctx.font = "20px system-ui";
       ctx.textAlign = "center";
-      const icon = selectedWeapon === 'bow' ? '🏹' : (selectedWeapon === 'blaster' ? '🔫' : '✨');
-      ctx.fillText(icon, canvas.width / 2, canvas.height - 16);
+      let turretIcon = "⚙️";
+      if (selectedMode === 'bottle') turretIcon = "⚙️";
+      else if (selectedMode === 'archery') turretIcon = "🏹";
+      else if (selectedMode === 'blaster') turretIcon = "🔫";
+      else if (selectedMode === 'bombs') turretIcon = "⚡";
+      else if (selectedMode === 'invaders') turretIcon = "🚀";
+      else if (selectedMode === 'racer') turretIcon = "🏎";
+      ctx.fillText(turretIcon, canvas.width / 2, canvas.height - 16);
       ctx.textAlign = "left";
 
       // 2. DRAW AND UPDATE PROJECTILES
@@ -898,9 +953,9 @@
         const p = projectiles[i];
         if (p.type === 'laser') {
           ctx.strokeStyle = p.color;
-          ctx.lineWidth = 3.5 * p.life;
+          ctx.lineWidth = 4 * p.life;
           ctx.shadowColor = p.color;
-          ctx.shadowBlur = 12;
+          ctx.shadowBlur = 14;
           ctx.beginPath();
           ctx.moveTo(p.startX, p.startY);
           ctx.lineTo(p.targetX, p.targetY);
@@ -909,23 +964,29 @@
           p.life -= 0.14;
           if (p.life <= 0) projectiles.splice(i, 1);
         } else {
-          // Arrow or Magic
           p.progress += p.speed;
           const currX = p.x + (p.targetX - p.x) * p.progress;
           const currY = p.y + (p.targetY - p.y) * p.progress;
 
-          if (p.type === 'arrow') {
+          if (p.type === 'cannonball') {
+            // Steel Ball
+            ctx.fillStyle = '#cbd5e1';
+            ctx.beginPath();
+            ctx.arc(currX, currY, 6, 0, Math.PI * 2);
+            ctx.fill();
+          } else if (p.type === 'arrow') {
+            // Golden Arrow
             ctx.strokeStyle = '#f59e0b';
             ctx.lineWidth = 3;
             ctx.beginPath();
             ctx.moveTo(currX, currY);
-            ctx.lineTo(currX, currY + 12);
+            ctx.lineTo(currX, currY + 14);
             ctx.stroke();
-          } else {
-            // Magic Orb
-            ctx.fillStyle = p.color;
+          } else if (p.type === 'missile') {
+            // Photon Rocket
+            ctx.fillStyle = '#38bdf8';
             ctx.beginPath();
-            ctx.arc(currX, currY, 6, 0, Math.PI * 2);
+            ctx.arc(currX, currY, 5, 0, Math.PI * 2);
             ctx.fill();
           }
 
@@ -933,7 +994,7 @@
         }
       }
 
-      // 3. DRAW AND UPDATE TARGET WORDS (WITH BOTTLES & HIGH-CONTRAST BOLD FONTS)
+      // 3. DRAW AND UPDATE TARGET WORDS
       if (selectedMode === 'invaders') {
         let hitEdge = false;
         itemsOnScreen.forEach(item => {
@@ -965,9 +1026,10 @@
         const boxX = item.x - 12;
         const boxY = item.y - 25;
 
-        // BOTTLE CRACKER CONTAINER OR TECH POD (HIGH CONTRAST)
-        if (item.isBottle || selectedMode === 'bottle') {
-          ctx.fillStyle = "rgba(15, 23, 42, 0.88)";
+        // HIGH CONTRAST CONTAINER
+        if (selectedMode === 'bottle') {
+          // Glass Bottle outline & neck
+          ctx.fillStyle = "rgba(15, 23, 42, 0.9)";
           ctx.strokeStyle = item === activeTarget ? "#f59e0b" : "#38bdf8";
           ctx.lineWidth = 2;
           ctx.beginPath();
@@ -975,12 +1037,10 @@
           ctx.fill();
           ctx.stroke();
 
-          // Bottle Neck graphic
-          ctx.strokeStyle = "rgba(56, 189, 248, 0.6)";
+          ctx.strokeStyle = "rgba(56, 189, 248, 0.7)";
           ctx.strokeRect(boxX - 6, boxY + 10, 6, 16);
         } else {
-          // Standard High-Contrast Pill
-          ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
+          ctx.fillStyle = "rgba(15, 23, 42, 0.88)";
           ctx.strokeStyle = item === activeTarget ? "#f59e0b" : "rgba(255,255,255,0.2)";
           ctx.lineWidth = 2;
           ctx.beginPath();
@@ -989,10 +1049,10 @@
           ctx.stroke();
         }
 
-        // BOLD TEXT RENDERING: GREEN FOR TYPED, YELLOW/WHITE FOR REMAINING
+        // BOLD TEXT RENDERING (GREEN FOR TYPED, YELLOW/WHITE FOR REMAINING)
         let drawX = item.x;
         if (item.typed.length > 0) {
-          ctx.fillStyle = "#10b981"; // Green typed
+          ctx.fillStyle = "#10b981";
           ctx.fillText(item.typed, drawX, item.y);
           drawX += ctx.measureText(item.typed).width;
         }
@@ -1012,14 +1072,13 @@
           }
         }
 
-        // Boundary / Collision with Bottom Platform
         const hitBase = (selectedMode === 'racer') ? (item.x <= 20) : (item.y >= baseY - 8);
         if (hitBase) {
           triggerHit(item, i);
         }
       }
 
-      // 4. DRAW AND UPDATE PARTICLES (INCL. GLASS SHARDS)
+      // 4. DRAW AND UPDATE PARTICLES
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.x += p.vx;
@@ -1031,7 +1090,7 @@
           ctx.fillStyle = p.color;
           ctx.globalAlpha = p.life;
           if (p.isGlass) {
-            ctx.fillRect(p.x, p.y, p.size, p.size * 1.5); // shard rectangle
+            ctx.fillRect(p.x, p.y, p.size, p.size * 1.5);
           } else {
             ctx.fillRect(p.x, p.y, p.size || 3, p.size || 3);
           }
