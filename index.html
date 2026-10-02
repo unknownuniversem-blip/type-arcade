@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>TypeArcade - English Typing Game Suite (Poki-Style Fullscreen)</title>
-  <meta name="description" content="100% Free English Typing Arcade Game. Play Meteor Storm, 60s Speed Blitz, and Survival Race with zero install and zero tracking.">
+  <title>TypeArcade - Ultimate English Typing Games Suite</title>
+  <meta name="description" content="5 Fast-paced Poki-style English typing games. Meteor Storm, Neon Highway, Space Invaders, 60s Blitz, and Bomb Defusal. Zero install, zero tracking.">
 
   <!-- Privacy Analytics -->
   <script data-goatcounter="https://quicktools.goatcounter.com/count"
@@ -17,11 +17,12 @@
     :root {
       --bg: #030712;
       --card: #0f172a;
-      --border: #1e293b;
+      --card-border: #1e293b;
       --primary: #38bdf8;
       --accent: #f59e0b;
       --danger: #ef4444;
       --success: #10b981;
+      --purple: #a855f7;
       --text: #f8fafc;
       --muted: #94a3b8;
     }
@@ -39,7 +40,7 @@
       width: 100vw;
       height: 100vh;
       height: 100dvh;
-      overflow: hidden;
+      overflow: hidden !important;
       background: var(--bg);
       color: var(--text);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -49,13 +50,14 @@
       display: block;
       width: 100vw;
       height: 100vh;
+      height: 100dvh;
       background: radial-gradient(circle at center, #0c162d 0%, #030712 100%);
     }
 
-    /* POKI-STYLE HUD */
+    /* ARCADE HUD */
     .hud {
       position: absolute;
-      top: 12px;
+      top: 10px;
       left: 14px;
       right: 14px;
       display: flex;
@@ -68,35 +70,35 @@
     .hud-group {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .hud-badge {
       background: rgba(15, 23, 42, 0.85);
       border: 1px solid rgba(56, 189, 248, 0.3);
       backdrop-filter: blur(8px);
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 9999px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       letter-spacing: 0.03em;
     }
 
-    .btn-icon-hud {
+    .btn-hud {
       pointer-events: auto;
       background: rgba(15, 23, 42, 0.85);
-      border: 1px solid var(--border);
+      border: 1px solid var(--card-border);
       color: #fff;
-      padding: 6px 12px;
+      padding: 5px 12px;
       border-radius: 9999px;
       font-size: 0.75rem;
       font-weight: 700;
       cursor: pointer;
-      text-decoration: none;
     }
+    .btn-hud:hover { border-color: var(--primary); }
 
     /* OVERLAYS */
     .overlay-screen {
@@ -106,51 +108,52 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: rgba(3, 7, 18, 0.9);
-      backdrop-filter: blur(10px);
-      padding: 20px;
+      background: rgba(3, 7, 18, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 16px;
       text-align: center;
       z-index: 20;
     }
 
     .arcade-title {
-      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-size: clamp(2rem, 5.5vw, 3.6rem);
       font-weight: 900;
       color: var(--primary);
-      text-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
+      text-shadow: 0 0 35px rgba(56, 189, 248, 0.6);
       letter-spacing: -0.03em;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .arcade-sub {
       color: var(--muted);
-      font-size: clamp(0.9rem, 2vw, 1.05rem);
-      max-width: 520px;
-      line-height: 1.5;
-      margin-bottom: 24px;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      max-width: 580px;
+      line-height: 1.4;
+      margin-bottom: 16px;
     }
 
-    /* GAME MODE CARDS */
+    /* 5 GAME MODES GRID */
     .modes-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      max-width: 760px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      max-width: 980px;
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    @media (max-width: 650px) {
-      .modes-grid { grid-template-columns: 1fr; gap: 8px; }
-      .arcade-title { font-size: 1.8rem; }
-      .arcade-sub { font-size: 0.8rem; margin-bottom: 12px; }
+    @media (max-width: 860px) {
+      .modes-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .modes-grid { grid-template-columns: 1fr 1fr; }
     }
 
     .mode-card {
       background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
+      border: 2px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px;
       cursor: pointer;
       transition: all 0.15s ease;
       text-align: left;
@@ -159,39 +162,45 @@
     .mode-card:hover, .mode-card.selected {
       border-color: var(--primary);
       transform: translateY(-2px);
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+    }
+
+    .mode-card.selected {
+      background: rgba(15, 23, 42, 0.95);
     }
 
     .mode-card h3 {
-      font-size: 1rem;
+      font-size: 0.88rem;
       font-weight: 800;
       color: #fff;
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 4px;
+      gap: 4px;
+      margin-bottom: 3px;
     }
 
     .mode-card p {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--muted);
-      line-height: 1.4;
+      line-height: 1.3;
     }
 
     /* DIFFICULTY SELECTOR */
     .diff-row {
       display: flex;
       gap: 8px;
-      margin-bottom: 24px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .btn-diff {
       background: var(--card);
-      border: 1px solid var(--border);
+      border: 1px solid var(--card-border);
       color: var(--muted);
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 9999px;
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 700;
       cursor: pointer;
     }
@@ -206,18 +215,17 @@
       background: var(--primary);
       color: #030712;
       border: none;
-      padding: 14px 44px;
-      font-size: 1.15rem;
+      padding: 12px 38px;
+      font-size: 1.1rem;
       font-weight: 900;
       border-radius: 9999px;
       cursor: pointer;
       box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
       transition: transform 0.1s ease;
     }
-
     .btn-play:active { transform: scale(0.96); }
 
-    /* HIDDEN VIRTUAL INPUT FOR MOBILE KEYBOARDS */
+    /* HIDDEN MOBILE IME INPUT */
     #mobileKeyInput {
       position: absolute;
       bottom: -150px;
@@ -230,7 +238,7 @@
 
   <canvas id="gameCanvas"></canvas>
 
-  <!-- HUD OVERLAY -->
+  <!-- HUD -->
   <div class="hud" id="gameHud" style="display:none;">
     <div class="hud-group">
       <div class="hud-badge" style="color:var(--primary);">
@@ -239,57 +247,71 @@
       <div class="hud-badge" style="color:var(--accent);">
         <span>STREAK:</span> <b id="valStreak">0x</b>
       </div>
+      <div class="hud-badge" style="color:var(--success);">
+        <span>WPM:</span> <b id="valWpm">0</b>
+      </div>
     </div>
 
     <div class="hud-group">
-      <div class="hud-badge" id="hudTimerBadge" style="color:#a855f7; display:none;">
+      <div class="hud-badge" id="hudTimerBadge" style="color:var(--purple); display:none;">
         <span>TIME:</span> <b id="valTimer">60s</b>
       </div>
       <div class="hud-badge" id="hudShieldBadge" style="color:var(--danger);">
         <span>SHIELD:</span> <b id="valShield">100%</b>
       </div>
-      <button type="button" class="btn-icon-hud" onclick="exitToMenu()">MENU</button>
+      <button type="button" class="btn-hud" id="btnAudioToggle" onclick="toggleAudio()">🔊 SFX</button>
+      <button type="button" class="btn-hud" onclick="exitToMenu()">MENU</button>
     </div>
   </div>
 
-  <!-- MAIN MENU SCREEN -->
+  <!-- MAIN MENU -->
   <div class="overlay-screen" id="menuScreen">
     <div class="arcade-title">⚡ TypeArcade</div>
-    <div class="arcade-sub">Fast-paced, Poki-style English typing arcade. Select a game mode and challenge your typing speed.</div>
+    <div class="arcade-sub">5 High-adrenaline English typing arcade games. Master speed, laser accuracy, and multi-word combos.</div>
 
     <div class="modes-grid">
       <div class="mode-card selected" onclick="selectMode('meteor')" id="card_meteor">
         <h3>☄️ Meteor Storm</h3>
-        <p>Destroy falling word-meteors with lasers before they crash into your planetary shield.</p>
+        <p>Defend your glowing bottom barrier against incoming word-meteors.</p>
+      </div>
+
+      <div class="mode-card" onclick="selectMode('racer')" id="card_racer">
+        <h3>🏎️️ Neon Highway</h3>
+        <p>Side-scrolling sprint. Type words to boost acceleration and dodge obstacles.</p>
+      </div>
+
+      <div class="mode-card" onclick="selectMode('invaders')" id="card_invaders">
+        <h3>🛸 Space Invaders</h3>
+        <p>Destroy tactical alien word grids descending from outer orbit.</p>
       </div>
 
       <div class="mode-card" onclick="selectMode('blitz')" id="card_blitz">
         <h3>⚡ 60s Blitz</h3>
-        <p>Rapid-fire reaction test. Type as many words as possible before the clock expires.</p>
+        <p>Pure reaction speed test. Rack up the highest score before time runs out.</p>
       </div>
 
-      <div class="mode-card" onclick="selectMode('race')" id="card_race">
-        <h3>🏎️ Survival Race</h3>
-        <p>Keep your speed engine fueled. Missed words deplete your energy tank.</p>
+      <div class="mode-card" onclick="selectMode('bombs')" id="card_bombs">
+        <h3>💣 Bomb Defusal</h3>
+        <p>Defuse ticking time bombs with individual fuses before they detonate.</p>
       </div>
     </div>
 
     <div class="diff-row">
-      <button type="button" class="btn-diff active" onclick="setDiff('rookie')" id="diff_rookie">Rookie (Basic)</button>
-      <button type="button" class="btn-diff" onclick="setDiff('pro')" id="diff_pro">Pro (6-8 Letters)</button>
-      <button type="button" class="btn-diff" onclick="setDiff('cyber')" id="diff_cyber">Cyber (Tech / Code)</button>
+      <button type="button" class="btn-diff active" onclick="setDiff('rookie')" id="diff_rookie">Rookie (Basic 3-5)</button>
+      <button type="button" class="btn-diff" onclick="setDiff('pro')" id="diff_pro">Pro (Complex 6-9)</button>
+      <button type="button" class="btn-diff" onclick="setDiff('cyber')" id="diff_cyber">Cyber (Tech / Dev)</button>
     </div>
 
     <button type="button" class="btn-play" onclick="launchGame()">🚀 START GAME</button>
   </div>
 
-  <!-- GAME OVER SCREEN -->
+  <!-- GAME OVER -->
   <div class="overlay-screen" id="gameOverScreen" style="display:none;">
     <div class="arcade-title" style="color:var(--danger); text-shadow:0 0 25px rgba(239,68,68,0.6);" id="goTitle">GAME OVER</div>
-    <div class="arcade-sub" id="goSummary">Final Score: 0 | Words Destroyed: 0</div>
+    <div class="arcade-sub" id="goSummary">Final Score: 0 | WPM: 0 | Destroyed: 0</div>
     <button type="button" class="btn-play" onclick="launchGame()">🔄 PLAY AGAIN</button>
-    <div style="margin-top:14px;">
-      <button type="button" class="btn-icon-hud" onclick="exitToMenu()">Change Game Mode</button>
+    <div style="margin-top:12px;">
+      <button type="button" class="btn-hud" onclick="exitToMenu()">Change Mode</button>
     </div>
   </div>
 
@@ -300,21 +322,23 @@
     const ctx = canvas.getContext('2d');
     const mobileInput = document.getElementById('mobileKeyInput');
 
-    // Synthesized Audio (Web Audio API)
+    let audioEnabled = true;
     let audioCtx = null;
+
     function playSfx(type) {
+      if (!audioEnabled) return;
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-
         const now = audioCtx.currentTime;
+
         if (type === 'laser') {
           osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(800, now);
-          osc.frequency.exponentialRampToValueAtTime(150, now + 0.08);
+          osc.frequency.setValueAtTime(900, now);
+          osc.frequency.exponentialRampToValueAtTime(160, now + 0.08);
           gain.gain.setValueAtTime(0.12, now);
           gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
           osc.start(now);
@@ -322,30 +346,46 @@
         } else if (type === 'explode') {
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(140, now);
-          osc.frequency.exponentialRampToValueAtTime(30, now + 0.18);
-          gain.gain.setValueAtTime(0.25, now);
-          gain.gain.linearRampToValueAtTime(0.01, now + 0.18);
+          osc.frequency.exponentialRampToValueAtTime(30, now + 0.2);
+          gain.gain.setValueAtTime(0.28, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.2);
           osc.start(now);
-          osc.stop(now + 0.18);
+          osc.stop(now + 0.2);
+        } else if (type === 'hit') {
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(180, now);
+          osc.frequency.exponentialRampToValueAtTime(80, now + 0.1);
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
+          osc.start(now);
+          osc.stop(now + 0.1);
         }
       } catch (e) {}
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      document.getElementById('btnAudioToggle').innerText = audioEnabled ? '🔊 SFX' : '🔇 Muted';
     }
 
     const dicts = {
       rookie: [
         "sky", "run", "fast", "game", "jump", "hero", "play", "cool",
         "star", "fire", "dark", "glow", "blue", "wind", "race", "neon",
-        "wave", "gold", "zoom", "dash", "bolt", "kick", "pure", "flow"
+        "wave", "gold", "zoom", "dash", "bolt", "kick", "pure", "flow",
+        "apex", "beam", "core", "disk", "echo", "flux", "grid", "halo"
       ],
       pro: [
         "velocity", "horizon", "quantum", "thunder", "gravity", "nebula",
         "phantom", "blaster", "starlight", "vanguard", "dynamic", "reactor",
-        "champion", "override", "spectrum", "valiant", "friction", "ascension"
+        "champion", "override", "spectrum", "valiant", "friction", "ascension",
+        "infinite", "hyperion", "solstice", "paradox", "luminary", "glacier"
       ],
       cyber: [
         "function", "boolean", "compile", "payload", "network", "virtual",
         "terminal", "encrypt", "pointer", "database", "cluster", "runtime",
-        "frontend", "backend", "variable", "security", "pipeline", "protocol"
+        "frontend", "backend", "variable", "security", "pipeline", "protocol",
+        "interface", "algorithm", "bandwidth", "framework", "asynchronous"
       ]
     };
 
@@ -359,12 +399,16 @@
     let timeLeft = 60;
     let timerInterval = null;
     let wordsDestroyed = 0;
+    let totalCharsTyped = 0;
+    let startTime = 0;
 
-    let wordsOnScreen = [];
+    let itemsOnScreen = [];
     let particles = [];
+    let laserBeams = [];
     let activeTarget = null;
     let lastSpawn = 0;
     let spawnRate = 2000;
+    let invadersDir = 1;
 
     function resize() {
       canvas.width = window.innerWidth;
@@ -407,15 +451,18 @@
       shield = 100;
       timeLeft = 60;
       wordsDestroyed = 0;
-      wordsOnScreen = [];
+      totalCharsTyped = 0;
+      itemsOnScreen = [];
       particles = [];
+      laserBeams = [];
       activeTarget = null;
-      spawnRate = selectedMode === 'blitz' ? 1200 : 2000;
+      startTime = performance.now();
       isPlaying = true;
 
       document.getElementById('valScore').innerText = score;
       document.getElementById('valStreak').innerText = streak + 'x';
       document.getElementById('valShield').innerText = shield + '%';
+      document.getElementById('valWpm').innerText = '0';
 
       if (selectedMode === 'blitz') {
         document.getElementById('hudTimerBadge').style.display = 'flex';
@@ -429,6 +476,11 @@
       } else {
         document.getElementById('hudTimerBadge').style.display = 'none';
         document.getElementById('hudShieldBadge').style.display = 'flex';
+      }
+
+      // Initial populate for Space Invaders mode
+      if (selectedMode === 'invaders') {
+        spawnInvadersWave();
       }
 
       mobileInput.focus();
@@ -445,56 +497,129 @@
       document.getElementById('menuScreen').style.display = 'flex';
     }
 
-    function spawnWord() {
+    function spawnInvadersWave() {
+      const bank = dicts[selectedDiff];
+      const cols = Math.min(Math.floor(canvas.width / 140), 6);
+      const rows = 3;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const text = bank[Math.floor(Math.random() * bank.length)];
+          itemsOnScreen.push({
+            text: text,
+            remaining: text,
+            x: 80 + c * 130,
+            y: 60 + r * 50,
+            speedX: 0.6,
+            speedY: 0.05,
+            isInvader: true
+          });
+        }
+      }
+    }
+
+    function spawnItem() {
       const bank = dicts[selectedDiff];
       const text = bank[Math.floor(Math.random() * bank.length)];
-      const x = 80 + Math.random() * (canvas.width - 200);
+      const x = 80 + Math.random() * (canvas.width - 220);
 
-      wordsOnScreen.push({
-        text: text,
-        remaining: text,
-        x: x,
-        y: selectedMode === 'race' ? canvas.height / 2 : 40,
-        speed: (selectedMode === 'race' ? 1.4 : 0.7) + Math.random() * 0.4
-      });
+      if (selectedMode === 'racer') {
+        itemsOnScreen.push({
+          text: text,
+          remaining: text,
+          x: canvas.width + 20,
+          y: 80 + Math.random() * (canvas.height - 200),
+          speed: 2.2 + Math.random() * 0.8
+        });
+      } else if (selectedMode === 'bombs') {
+        itemsOnScreen.push({
+          text: text,
+          remaining: text,
+          x: x,
+          y: 70 + Math.random() * (canvas.height - 230),
+          fuse: 100, // percentage
+          fuseSpeed: 0.25 + Math.random() * 0.15,
+          isBomb: true
+        });
+      } else {
+        // Meteor / Blitz default
+        itemsOnScreen.push({
+          text: text,
+          remaining: text,
+          x: x,
+          y: 40,
+          speed: (selectedMode === 'blitz' ? 1.0 : 0.65) + Math.random() * 0.5
+        });
+      }
     }
 
     function handleInputKey(char) {
       if (!isPlaying || !char) return;
       char = char.toLowerCase();
+      totalCharsTyped++;
 
       if (activeTarget) {
         if (activeTarget.remaining.toLowerCase().startsWith(char)) {
           activeTarget.remaining = activeTarget.remaining.substring(char.length);
           streak++;
           playSfx('laser');
-          createBurst(activeTarget.x, activeTarget.y, 4, '#38bdf8');
+
+          // FIRE CANNON BEAM FROM BOTTOM DEFENSE BASE
+          laserBeams.push({
+            startX: canvas.width / 2,
+            startY: canvas.height - 35,
+            targetX: activeTarget.x + 25,
+            targetY: activeTarget.y,
+            life: 1.0,
+            color: '#38bdf8'
+          });
+
+          createBurst(activeTarget.x, activeTarget.y, 5, '#38bdf8');
 
           if (activeTarget.remaining.length === 0) {
-            score += activeTarget.text.length * 10 * Math.min(streak, 5);
+            score += activeTarget.text.length * 10 * Math.min(streak, 10);
             wordsDestroyed++;
             playSfx('explode');
             createBurst(activeTarget.x, activeTarget.y, 25, '#f59e0b');
-            wordsOnScreen = wordsOnScreen.filter(w => w !== activeTarget);
+            itemsOnScreen = itemsOnScreen.filter(w => w !== activeTarget);
             activeTarget = null;
           }
         } else {
           streak = 0;
+          playSfx('hit');
         }
       } else {
-        const candidates = wordsOnScreen.filter(w => w.remaining.toLowerCase().startsWith(char));
+        const candidates = itemsOnScreen.filter(w => w.remaining.toLowerCase().startsWith(char));
         if (candidates.length > 0) {
-          candidates.sort((a, b) => b.y - a.y);
+          if (selectedMode === 'racer') {
+            candidates.sort((a, b) => a.x - b.x); // closest forward
+          } else {
+            candidates.sort((a, b) => b.y - a.y); // lowest threat
+          }
           activeTarget = candidates[0];
           activeTarget.remaining = activeTarget.remaining.substring(char.length);
           streak = 1;
           playSfx('laser');
-          createBurst(activeTarget.x, activeTarget.y, 4, '#38bdf8');
+
+          laserBeams.push({
+            startX: canvas.width / 2,
+            startY: canvas.height - 35,
+            targetX: activeTarget.x + 25,
+            targetY: activeTarget.y,
+            life: 1.0,
+            color: '#38bdf8'
+          });
+
+          createBurst(activeTarget.x, activeTarget.y, 5, '#38bdf8');
         }
       }
 
+      // Update WPM
+      const elapsedMin = Math.max((performance.now() - startTime) / 60000, 0.05);
+      const wpm = Math.round((totalCharsTyped / 5) / elapsedMin);
+
       document.getElementById('valScore').innerText = score;
       document.getElementById('valStreak').innerText = streak + 'x';
+      document.getElementById('valWpm').innerText = wpm;
     }
 
     window.addEventListener('keydown', (e) => {
@@ -519,75 +644,140 @@
         particles.push({
           x: x,
           y: y,
-          vx: (Math.random() - 0.5) * 7,
-          vy: (Math.random() - 0.5) * 7,
+          vx: (Math.random() - 0.5) * 8,
+          vy: (Math.random() - 0.5) * 8,
           life: 1.0,
           color: color
         });
       }
     }
 
+    /* MAIN GAME RENDER & ANIMATION LOOP */
     function gameLoop(time) {
       if (!isPlaying) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      if (time - lastSpawn > spawnRate) {
-        spawnWord();
-        lastSpawn = time;
-        if (spawnRate > 900) spawnRate -= 15;
+      // Spawning
+      if (selectedMode !== 'invaders') {
+        if (time - lastSpawn > spawnRate) {
+          spawnItem();
+          lastSpawn = time;
+          if (spawnRate > 850) spawnRate -= 15;
+        }
+      } else {
+        if (itemsOnScreen.length === 0) spawnInvadersWave();
       }
 
-      ctx.font = "bold 24px system-ui, sans-serif";
+      // 1. DRAW BOTTOM NEON DEFENSE PLATFORM & SHIELD (DISTINCT HIGHLIGHTED ZONE)
+      const baseHeight = 44;
+      const baseY = canvas.height - baseHeight;
 
-      for (let i = wordsOnScreen.length - 1; i >= 0; i--) {
-        const item = wordsOnScreen[i];
+      // Glowing Base Gradient
+      const baseGrad = ctx.createLinearGradient(0, baseY, 0, canvas.height);
+      baseGrad.addColorStop(0, 'rgba(56, 189, 248, 0.35)');
+      baseGrad.addColorStop(1, 'rgba(15, 23, 42, 0.95)');
+      ctx.fillStyle = baseGrad;
+      ctx.fillRect(0, baseY, canvas.width, baseHeight);
 
-        if (selectedMode === 'race') {
-          item.x -= item.speed * 2.2;
-        } else {
+      // Neon Top Border Line
+      ctx.strokeStyle = activeTarget ? '#f59e0b' : '#38bdf8';
+      ctx.lineWidth = 3;
+      ctx.shadowColor = activeTarget ? '#f59e0b' : '#38bdf8';
+      ctx.shadowBlur = 15;
+      ctx.beginPath();
+      ctx.moveTo(0, baseY);
+      ctx.lineTo(canvas.width, baseY);
+      ctx.stroke();
+      ctx.shadowBlur = 0; // reset blur
+
+      // Center Laser Cannon Turret
+      ctx.fillStyle = '#0f172a';
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, canvas.height - 10, 24, Math.PI, 0);
+      ctx.fill();
+      ctx.stroke();
+
+      // 2. DRAW AND UPDATE LASER BEAMS
+      for (let i = laserBeams.length - 1; i >= 0; i--) {
+        const b = laserBeams[i];
+        ctx.strokeStyle = b.color;
+        ctx.lineWidth = 3 * b.life;
+        ctx.shadowColor = b.color;
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.moveTo(b.startX, b.startY);
+        ctx.lineTo(b.targetX, b.targetY);
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        b.life -= 0.12;
+        if (b.life <= 0) laserBeams.splice(i, 1);
+      }
+
+      // 3. DRAW AND UPDATE ACTIVE WORD ITEMS
+      ctx.font = "bold 23px system-ui, sans-serif";
+
+      // Space Invaders shift logic
+      if (selectedMode === 'invaders') {
+        let hitEdge = false;
+        itemsOnScreen.forEach(item => {
+          item.x += item.speedX * invadersDir;
+          if (item.x < 30 || item.x > canvas.width - 150) hitEdge = true;
+        });
+        if (hitEdge) {
+          invadersDir *= -1;
+          itemsOnScreen.forEach(item => { item.y += 18; });
+        }
+      }
+
+      for (let i = itemsOnScreen.length - 1; i >= 0; i--) {
+        const item = itemsOnScreen[i];
+
+        if (selectedMode === 'racer') {
+          item.x -= item.speed;
+        } else if (selectedMode === 'bombs') {
+          item.fuse -= item.fuseSpeed;
+        } else if (selectedMode !== 'invaders') {
           item.y += item.speed;
         }
 
-        // Active laser targeting
+        // Active Lock Ring
         if (item === activeTarget) {
-          ctx.strokeStyle = "#38bdf8";
+          ctx.strokeStyle = "#f59e0b";
           ctx.lineWidth = 2;
           ctx.beginPath();
-          ctx.arc(item.x + 30, item.y - 8, 32, 0, Math.PI * 2);
-          ctx.stroke();
-
-          ctx.strokeStyle = "rgba(56, 189, 248, 0.45)";
-          ctx.beginPath();
-          ctx.moveTo(canvas.width / 2, canvas.height);
-          ctx.lineTo(item.x + 30, item.y);
+          ctx.arc(item.x + 28, item.y - 8, 30, 0, Math.PI * 2);
           ctx.stroke();
         }
 
+        // Render Text with typed split
         ctx.fillStyle = (item === activeTarget) ? "#f59e0b" : "#ffffff";
         ctx.fillText(item.text, item.x, item.y);
 
-        // Collision detection
-        const reachedDanger = selectedMode === 'race' ? (item.x <= 20) : (item.y >= canvas.height - 35);
-        if (reachedDanger) {
-          createBurst(item.x, item.y, 16, '#ef4444');
-          wordsOnScreen.splice(i, 1);
-          if (item === activeTarget) activeTarget = null;
-          streak = 0;
-          document.getElementById('valStreak').innerText = '0x';
+        // Bomb Fuse Bar
+        if (item.isBomb) {
+          ctx.fillStyle = "rgba(255,255,255,0.2)";
+          ctx.fillRect(item.x, item.y + 6, 80, 4);
+          ctx.fillStyle = item.fuse < 30 ? "#ef4444" : "#f59e0b";
+          ctx.fillRect(item.x, item.y + 6, Math.max(0, (item.fuse / 100) * 80), 4);
 
-          if (selectedMode !== 'blitz') {
-            shield -= 20;
-            document.getElementById('valShield').innerText = shield + '%';
-            if (shield <= 0) {
-              triggerGameOver('MISSION DEFEATED');
-              return;
-            }
+          if (item.fuse <= 0) {
+            triggerHit(item, i);
+            continue;
           }
+        }
+
+        // Bottom Boundary / Racer Escape Collisions
+        const hitBase = (selectedMode === 'racer') ? (item.x <= 20) : (item.y >= baseY - 10);
+        if (hitBase) {
+          triggerHit(item, i);
         }
       }
 
-      // Particles
+      // 4. DRAW AND UPDATE PARTICLES
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.x += p.vx;
@@ -606,11 +796,31 @@
       requestAnimationFrame(gameLoop);
     }
 
+    function triggerHit(item, index) {
+      createBurst(item.x, item.y, 18, '#ef4444');
+      itemsOnScreen.splice(index, 1);
+      if (item === activeTarget) activeTarget = null;
+      streak = 0;
+      document.getElementById('valStreak').innerText = '0x';
+      playSfx('hit');
+
+      if (selectedMode !== 'blitz') {
+        shield -= 20;
+        document.getElementById('valShield').innerText = shield + '%';
+        if (shield <= 0) {
+          triggerGameOver('DEFENSE COLLAPSED');
+        }
+      }
+    }
+
     function triggerGameOver(title) {
       isPlaying = false;
       clearInterval(timerInterval);
+      const elapsedMin = Math.max((performance.now() - startTime) / 60000, 0.05);
+      const finalWpm = Math.round((totalCharsTyped / 5) / elapsedMin);
+
       document.getElementById('goTitle').innerText = title;
-      document.getElementById('goSummary').innerText = `Final Score: ${score} | Words Destroyed: ${wordsDestroyed}`;
+      document.getElementById('goSummary').innerText = `Final Score: ${score} | Net WPM: ${finalWpm} | Destroyed: ${wordsDestroyed}`;
       document.getElementById('gameOverScreen').style.display = 'flex';
     }
   </script>
