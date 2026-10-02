@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>TypeArcade - English Typing Game Suite (Poki-Style Fullscreen)</title>
+  <meta name="description" content="100% Free English Typing Arcade Game. Play Meteor Storm, 60s Speed Blitz, and Survival Race with zero install and zero tracking.">
+
+  <!-- Privacy Analytics -->
+  <script data-goatcounter="https://quicktools.goatcounter.com/count"
+          data-goatcounter-settings='{"allow_local": true}'
+          async src="//gc.zgo.at/count.js"></script>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a' stroke='%2338bdf8' stroke-width='1.5'/%3E%3Cpolygon points='10,8 24,16 10,24' fill='%2338bdf8'/%3E%3C/svg%3E">
+
+  <style>
+    :root {
+      --bg: #030712;
+      --card: #0f172a;
+      --border: #1e293b;
+      --primary: #38bdf8;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --success: #10b981;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    #gameCanvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, #0c162d 0%, #030712 100%);
+    }
+
+    /* POKI-STYLE HUD */
+    .hud {
+      position: absolute;
+      top: 12px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .hud-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hud-badge {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    .btn-icon-hud {
+      pointer-events: auto;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    /* OVERLAYS */
+    .overlay-screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(3, 7, 18, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      text-align: center;
+      z-index: 20;
+    }
+
+    .arcade-title {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 900;
+      color: var(--primary);
+      text-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .arcade-sub {
+      color: var(--muted);
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      max-width: 520px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    /* GAME MODE CARDS */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 760px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 650px) {
+      .modes-grid { grid-template-columns: 1fr; gap: 8px; }
+      .arcade-title { font-size: 1.8rem; }
+      .arcade-sub { font-size: 0.8rem; margin-bottom: 12px; }
+    }
+
+    .mode-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+
+    .mode-card:hover, .mode-card.selected {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+    }
+
+    .mode-card h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .mode-card p {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* DIFFICULTY SELECTOR */
+    .diff-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .btn-diff {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-diff.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(245, 158, 11, 0.15);
+    }
+
+    .btn-play {
+      background: var(--primary);
+      color: #030712;
+      border: none;
+      padding: 14px 44px;
+      font-size: 1.15rem;
+      font-weight: 900;
+      border-radius: 9999px;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+      transition: transform 0.1s ease;
+    }
+
+    .btn-play:active { transform: scale(0.96); }
+
+    /* HIDDEN VIRTUAL INPUT FOR MOBILE KEYBOARDS */
+    #mobileKeyInput {
+      position: absolute;
+      bottom: -150px;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- HUD OVERLAY -->
+  <div class="hud" id="gameHud" style="display:none;">
+    <div class="hud-group">
+      <div class="hud-badge" style="color:var(--primary);">
+        <span>SCORE:</span> <b id="valScore">0</b>
+      </div>
+      <div class="hud-badge" style="color:var(--accent);">
+        <span>STREAK:</span> <b id="valStreak">0x</b>
+      </div>
+    </div>
+
+    <div class="hud-group">
+      <div class="hud-badge" id="hudTimerBadge" style="color:#a855f7; display:none;">
+        <span>TIME:</span> <b id="valTimer">60s</b>
+      </div>
+      <div class="hud-badge" id="hudShieldBadge" style="color:var(--danger);">
+        <span>SHIELD:</span> <b id="valShield">100%</b>
+      </div>
+      <button type="button" class="btn-icon-hud" onclick="exitToMenu()">MENU</button>
+    </div>
+  </div>
+
+  <!-- MAIN MENU SCREEN -->
+  <div class="overlay-screen" id="menuScreen">
+    <div class="arcade-title">⚡ TypeArcade</div>
+    <div class="arcade-sub">Fast-paced, Poki-style English typing arcade. Select a game mode and challenge your typing speed.</div>
+
+    <div class="modes-grid">
+      <div class="mode-card selected" onclick="selectMode('meteor')" id="card_meteor">
+        <h3>☄️ Meteor Storm</h3>
+        <p>Destroy falling word-meteors with lasers before they crash into your planetary shield.</p>
+      </div>
+
+      <div class="mode-card" onclick="selectMode('blitz')" id="card_blitz">
+        <h3>⚡ 60s Blitz</h3>
+        <p>Rapid-fire reaction test. Type as many words as possible before the clock expires.</p>
+      </div>
+
+      <div class="mode-card" onclick="selectMode('race')" id="card_race">
+        <h3>🏎️ Survival Race</h3>
+        <p>Keep your speed engine fueled. Missed words deplete your energy tank.</p>
+      </div>
+    </div>
+
+    <div class="diff-row">
+      <button type="button" class="btn-diff active" onclick="setDiff('rookie')" id="diff_rookie">Rookie (Basic)</button>
+      <button type="button" class="btn-diff" onclick="setDiff('pro')" id="diff_pro">Pro (6-8 Letters)</button>
+      <button type="button" class="btn-diff" onclick="setDiff('cyber')" id="diff_cyber">Cyber (Tech / Code)</button>
+    </div>
+
+    <button type="button" class="btn-play" onclick="launchGame()">🚀 START GAME</button>
+  </div>
+
+  <!-- GAME OVER SCREEN -->
+  <div class="overlay-screen" id="gameOverScreen" style="display:none;">
+    <div class="arcade-title" style="color:var(--danger); text-shadow:0 0 25px rgba(239,68,68,0.6);" id="goTitle">GAME OVER</div>
+    <div class="arcade-sub" id="goSummary">Final Score: 0 | Words Destroyed: 0</div>
+    <button type="button" class="btn-play" onclick="launchGame()">🔄 PLAY AGAIN</button>
+    <div style="margin-top:14px;">
+      <button type="button" class="btn-icon-hud" onclick="exitToMenu()">Change Game Mode</button>
+    </div>
+  </div>
+
+  <input type="text" id="mobileKeyInput" autocomplete="off" autocapitalize="off" spellcheck="false">
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const mobileInput = document.getElementById('mobileKeyInput');
+
+    // Synthesized Audio (Web Audio API)
+    let audioCtx = null;
+    function playSfx(type) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'laser') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(800, now);
+          osc.frequency.exponentialRampToValueAtTime(150, now + 0.08);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'explode') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(140, now);
+          osc.frequency.exponentialRampToValueAtTime(30, now + 0.18);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.18);
+          osc.start(now);
+          osc.stop(now + 0.18);
+        }
+      } catch (e) {}
+    }
+
+    const dicts = {
+      rookie: [
+        "sky", "run", "fast", "game", "jump", "hero", "play", "cool",
+        "star", "fire", "dark", "glow", "blue", "wind", "race", "neon",
+        "wave", "gold", "zoom", "dash", "bolt", "kick", "pure", "flow"
+      ],
+      pro: [
+        "velocity", "horizon", "quantum", "thunder", "gravity", "nebula",
+        "phantom", "blaster", "starlight", "vanguard", "dynamic", "reactor",
+        "champion", "override", "spectrum", "valiant", "friction", "ascension"
+      ],
+      cyber: [
+        "function", "boolean", "compile", "payload", "network", "virtual",
+        "terminal", "encrypt", "pointer", "database", "cluster", "runtime",
+        "frontend", "backend", "variable", "security", "pipeline", "protocol"
+      ]
+    };
+
+    let selectedMode = 'meteor';
+    let selectedDiff = 'rookie';
+    let isPlaying = false;
+
+    let score = 0;
+    let streak = 0;
+    let shield = 100;
+    let timeLeft = 60;
+    let timerInterval = null;
+    let wordsDestroyed = 0;
+
+    let wordsOnScreen = [];
+    let particles = [];
+    let activeTarget = null;
+    let lastSpawn = 0;
+    let spawnRate = 2000;
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function selectMode(m) {
+      selectedMode = m;
+      document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+      document.getElementById(`card_${m}`).classList.add('selected');
+    }
+
+    function setDiff(d) {
+      selectedDiff = d;
+      document.querySelectorAll('.btn-diff').forEach(b => b.classList.remove('active'));
+      document.getElementById(`diff_${d}`).classList.add('active');
+    }
+
+    async function requestAppScreen() {
+      try {
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen();
+        }
+        if (screen.orientation && screen.orientation.lock) {
+          await screen.orientation.lock('landscape');
+        }
+      } catch (e) {}
+    }
+
+    function launchGame() {
+      requestAppScreen();
+      document.getElementById('menuScreen').style.display = 'none';
+      document.getElementById('gameOverScreen').style.display = 'none';
+      document.getElementById('gameHud').style.display = 'flex';
+
+      score = 0;
+      streak = 0;
+      shield = 100;
+      timeLeft = 60;
+      wordsDestroyed = 0;
+      wordsOnScreen = [];
+      particles = [];
+      activeTarget = null;
+      spawnRate = selectedMode === 'blitz' ? 1200 : 2000;
+      isPlaying = true;
+
+      document.getElementById('valScore').innerText = score;
+      document.getElementById('valStreak').innerText = streak + 'x';
+      document.getElementById('valShield').innerText = shield + '%';
+
+      if (selectedMode === 'blitz') {
+        document.getElementById('hudTimerBadge').style.display = 'flex';
+        document.getElementById('hudShieldBadge').style.display = 'none';
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          timeLeft--;
+          document.getElementById('valTimer').innerText = timeLeft + 's';
+          if (timeLeft <= 0) triggerGameOver('TIME UP!');
+        }, 1000);
+      } else {
+        document.getElementById('hudTimerBadge').style.display = 'none';
+        document.getElementById('hudShieldBadge').style.display = 'flex';
+      }
+
+      mobileInput.focus();
+      mobileInput.value = "";
+      lastSpawn = performance.now();
+      requestAnimationFrame(gameLoop);
+    }
+
+    function exitToMenu() {
+      isPlaying = false;
+      clearInterval(timerInterval);
+      document.getElementById('gameHud').style.display = 'none';
+      document.getElementById('gameOverScreen').style.display = 'none';
+      document.getElementById('menuScreen').style.display = 'flex';
+    }
+
+    function spawnWord() {
+      const bank = dicts[selectedDiff];
+      const text = bank[Math.floor(Math.random() * bank.length)];
+      const x = 80 + Math.random() * (canvas.width - 200);
+
+      wordsOnScreen.push({
+        text: text,
+        remaining: text,
+        x: x,
+        y: selectedMode === 'race' ? canvas.height / 2 : 40,
+        speed: (selectedMode === 'race' ? 1.4 : 0.7) + Math.random() * 0.4
+      });
+    }
+
+    function handleInputKey(char) {
+      if (!isPlaying || !char) return;
+      char = char.toLowerCase();
+
+      if (activeTarget) {
+        if (activeTarget.remaining.toLowerCase().startsWith(char)) {
+          activeTarget.remaining = activeTarget.remaining.substring(char.length);
+          streak++;
+          playSfx('laser');
+          createBurst(activeTarget.x, activeTarget.y, 4, '#38bdf8');
+
+          if (activeTarget.remaining.length === 0) {
+            score += activeTarget.text.length * 10 * Math.min(streak, 5);
+            wordsDestroyed++;
+            playSfx('explode');
+            createBurst(activeTarget.x, activeTarget.y, 25, '#f59e0b');
+            wordsOnScreen = wordsOnScreen.filter(w => w !== activeTarget);
+            activeTarget = null;
+          }
+        } else {
+          streak = 0;
+        }
+      } else {
+        const candidates = wordsOnScreen.filter(w => w.remaining.toLowerCase().startsWith(char));
+        if (candidates.length > 0) {
+          candidates.sort((a, b) => b.y - a.y);
+          activeTarget = candidates[0];
+          activeTarget.remaining = activeTarget.remaining.substring(char.length);
+          streak = 1;
+          playSfx('laser');
+          createBurst(activeTarget.x, activeTarget.y, 4, '#38bdf8');
+        }
+      }
+
+      document.getElementById('valScore').innerText = score;
+      document.getElementById('valStreak').innerText = streak + 'x';
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' || e.key.length > 1) return;
+      handleInputKey(e.key);
+    });
+
+    mobileInput.addEventListener('input', () => {
+      const val = mobileInput.value;
+      if (val.length > 0) {
+        handleInputKey(val[val.length - 1]);
+        mobileInput.value = "";
+      }
+    });
+
+    canvas.addEventListener('pointerdown', () => {
+      if (isPlaying) mobileInput.focus();
+    });
+
+    function createBurst(x, y, count, color) {
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 7,
+          vy: (Math.random() - 0.5) * 7,
+          life: 1.0,
+          color: color
+        });
+      }
+    }
+
+    function gameLoop(time) {
+      if (!isPlaying) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (time - lastSpawn > spawnRate) {
+        spawnWord();
+        lastSpawn = time;
+        if (spawnRate > 900) spawnRate -= 15;
+      }
+
+      ctx.font = "bold 24px system-ui, sans-serif";
+
+      for (let i = wordsOnScreen.length - 1; i >= 0; i--) {
+        const item = wordsOnScreen[i];
+
+        if (selectedMode === 'race') {
+          item.x -= item.speed * 2.2;
+        } else {
+          item.y += item.speed;
+        }
+
+        // Active laser targeting
+        if (item === activeTarget) {
+          ctx.strokeStyle = "#38bdf8";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(item.x + 30, item.y - 8, 32, 0, Math.PI * 2);
+          ctx.stroke();
+
+          ctx.strokeStyle = "rgba(56, 189, 248, 0.45)";
+          ctx.beginPath();
+          ctx.moveTo(canvas.width / 2, canvas.height);
+          ctx.lineTo(item.x + 30, item.y);
+          ctx.stroke();
+        }
+
+        ctx.fillStyle = (item === activeTarget) ? "#f59e0b" : "#ffffff";
+        ctx.fillText(item.text, item.x, item.y);
+
+        // Collision detection
+        const reachedDanger = selectedMode === 'race' ? (item.x <= 20) : (item.y >= canvas.height - 35);
+        if (reachedDanger) {
+          createBurst(item.x, item.y, 16, '#ef4444');
+          wordsOnScreen.splice(i, 1);
+          if (item === activeTarget) activeTarget = null;
+          streak = 0;
+          document.getElementById('valStreak').innerText = '0x';
+
+          if (selectedMode !== 'blitz') {
+            shield -= 20;
+            document.getElementById('valShield').innerText = shield + '%';
+            if (shield <= 0) {
+              triggerGameOver('MISSION DEFEATED');
+              return;
+            }
+          }
+        }
+      }
+
+      // Particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 0.035;
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+        } else {
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.life;
+          ctx.fillRect(p.x, p.y, 3, 3);
+          ctx.globalAlpha = 1.0;
+        }
+      }
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    function triggerGameOver(title) {
+      isPlaying = false;
+      clearInterval(timerInterval);
+      document.getElementById('goTitle').innerText = title;
+      document.getElementById('goSummary').innerText = `Final Score: ${score} | Words Destroyed: ${wordsDestroyed}`;
+      document.getElementById('gameOverScreen').style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
