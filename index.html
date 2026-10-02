@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
   <title>TypeArcade - Weapon Typing & Bottle Cracker Suite</title>
   <meta name="description" content="Ultimate English typing arcade game with Bow & Arrow, Laser Gun, Bottle Cracking physics, and instant end-game controls.">
 
@@ -248,12 +248,42 @@
     .summary-item strong { display: block; font-size: 1.2rem; color: #fff; }
     .summary-item span { font-size: 0.72rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
 
-    /* HIDDEN MOBILE IME INPUT */
+    /* ANDROID-COMPLIANT TOUCH CATCHER */
     #mobileKeyInput {
-      position: absolute;
-      bottom: -150px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       opacity: 0;
-      pointer-events: none;
+      z-index: 5;
+      font-size: 16px; /* Prevents iOS/Android auto-zoom on focus */
+      background: transparent;
+      border: none;
+      outline: none;
+      color: transparent;
+      caret-color: transparent;
+    }
+
+    .btn-mobile-keyboard {
+      display: none;
+      position: absolute;
+      bottom: 58px;
+      right: 14px;
+      z-index: 15;
+      background: rgba(56, 189, 248, 0.2);
+      border: 1px solid var(--primary);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+    }
+
+    @media (pointer: coarse) {
+      .btn-mobile-keyboard { display: block; }
     }
   </style>
 </head>
@@ -537,6 +567,15 @@
           await screen.orientation.lock('landscape');
         }
       } catch (e) {}
+    }
+
+    
+    function focusKeyboard() {
+      const input = document.getElementById('mobileKeyInput');
+      if (input) {
+        input.focus();
+        input.click();
+      }
     }
 
     function launchGame() {
